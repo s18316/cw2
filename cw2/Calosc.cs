@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-
+﻿using System.Collections.Generic;
 using System.Xml.Serialization;
 using cw2;
 
@@ -14,5 +12,11 @@ namespace Cw2
         public string author;
 
         public HashSet<Student> studentsList;
+
+        [XmlAttribute]
+        public int ComputerScience;
+        [XmlAttribute]
+        public int NewMediaArt;
+
     }
 }

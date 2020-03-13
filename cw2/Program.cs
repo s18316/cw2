@@ -91,19 +91,21 @@ namespace Cw2
 
                 }
 
-            //         Calosc cal = new Calosc()
-            //         {
-            //             createdAt = DateTime.Today.ToShortDateString(),
-            //             author = "Sasha Rzepkowska",
-            //             studentsList = listaStud
-            // };
+                   Calosc cal = new Calosc()
+                    {createdAt = DateTime.Today.ToShortDateString(),
+                         author = "Sasha Rzepkowska",
+                        studentsList = listaStud,
+                        ComputerScience = ileComp,
+                        NewMediaArt = ileMedia
+
+                    };
                     //wersja XML
                     if (dane[2] == "xml")
                     {
                         FileStream XML = new FileStream(dane[1], FileMode.Create);
                         XmlSerializer serializer =
-                            new XmlSerializer(typeof(HashSet<Student>), new XmlRootAttribute("uczelnia"));
-                        serializer.Serialize(XML, listaStud);
+                            new XmlSerializer(typeof(Calosc), new XmlRootAttribute("uczelnia"));
+                        serializer.Serialize(XML, cal);
 
                         XML.Close();
                         XML.Dispose();
