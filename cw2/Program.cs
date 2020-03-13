@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Runtime.Serialization.Json;
 using System.Text.RegularExpressions;
 using System.Xml.Serialization;
 
@@ -20,44 +21,31 @@ namespace Cw2
             
             string[] dane = new string[3];
 
-            if (args.Length >= 1)
-                dane[0] = args[0];
-            else
-                dane[0] = "data.csv";
-
-            if (args.Length >= 2)
-                dane[1] = args[1];
-            else
-                dane[1] = "żesult.xml";
-
-            if (args.Length >= 3)
-                dane[2] = args[2];
-            else
-                dane[2] = "xml";
+            
+                dane[0] = args.Length > 0 ? args[0] : @"data.csv" ;
+                dane[1] = args.Length > 1 ? args[1] : @"żesult.xml";
+                dane[2] = args.Length > 2 ? args[2] : "xml";
 
                 try
                 {
 
+
+                    //uzywanie naszego comperatora
                     var listaStud = new HashSet<Student>(new OwnComparator());
-
-
                     var stream = new StreamReader(File.OpenRead(Path.GetFullPath(dane[0])));
-
                     string line = stream.ReadLine();
-
-
-                    while (line != null)
+                    while (!string.IsNullOrEmpty(line))
                     {
 
                         bool wpisywac = true;
 
                         string[] student = line.Split(',');
 
+                        //poszukiwanie pusych kollumn
                           var regex = new Regex("$\\s+");
                         for (int i = 0; i < student.Length; i++)
                         {
                             var matches = regex.Matches(student[i]);
-
                             if (matches.Count > 0)
                             {
                                 writer.WriteLine(line);
@@ -95,8 +83,9 @@ namespace Cw2
                         line = stream.ReadLine();
 
                 }
-
-                    FileStream XML = new FileStream(dane[1], FileMode.Create);
+                    
+                            
+                            FileStream XML = new FileStream(dane[1], FileMode.Create);
                             XmlSerializer serializer = new XmlSerializer(typeof(HashSet<Student>), new XmlRootAttribute("uczelnia"));
                             serializer.Serialize(XML, listaStud);
 

@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<uczelnia_x0020_a xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+<uczelnia xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
   <Student>
     <index>459</index>
     <fname>Paweł</fname>
@@ -2200,4 +2200,4 @@
     <name>Informatyka dzienne po angielsku</name>
     <mode>Dzienne</mode>
   </Student>
-</uczelnia_x0020_a>
+</uczelnia>
