@@ -59,8 +59,8 @@ namespace Cw2
                         if (student.Length == 9 && czyWypisac == true)
                         {
                             //zniczanie ucznow na poszczegolnych kierunkach
-                            if (student[2].Equals("New Media Art")) ileMedia++;
-                            if (student[2].Equals("Computer Science")) ileComp++;
+                            if (student[2].Equals("Sztuka Nowych Mediów dzienne")) ileMedia++;
+                            if (student[2].Equals("Informatyka dzienne")) ileComp++;
 
                         var st = new Student
                             {
