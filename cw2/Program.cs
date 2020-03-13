@@ -32,13 +32,15 @@ namespace Cw2
 
 
                     //uzywanie naszego comperatora
+                    int ileComp = 0;
+                    int ileMedia = 0;
                     var listaStud = new HashSet<Student>(new OwnComparator());
                     var stream = new StreamReader(File.OpenRead(Path.GetFullPath(dane[0])));
                     string line = stream.ReadLine();
                     while (!string.IsNullOrEmpty(line))
                     {
 
-                        bool wpisywac = true;
+                        bool czyWypisac = true;
 
                         string[] student = line.Split(',');
 
@@ -50,13 +52,17 @@ namespace Cw2
                             if (matches.Count > 0)
                             {
                                 writer.WriteLine(line);
-                                wpisywac = false;
+                                czyWypisac = false;
                             }
                         }
 
-                        if (student.Length == 9 && wpisywac == true)
+                        if (student.Length == 9 && czyWypisac == true)
                         {
-                            var st = new Student
+                            //zniczanie ucznow na poszczegolnych kierunkach
+                            if (student[2].Equals("New Media Art")) ileMedia++;
+                            if (student[2].Equals("Computer Science")) ileComp++;
+
+                        var st = new Student
                             {
 
                                 fName = student[0],
@@ -85,28 +91,41 @@ namespace Cw2
 
                 }
 
+            //         Calosc cal = new Calosc()
+            //         {
+            //             createdAt = DateTime.Today.ToShortDateString(),
+            //             author = "Sasha Rzepkowska",
+            //             studentsList = listaStud
+            // };
+                    //wersja XML
                     if (dane[2] == "xml")
                     {
                         FileStream XML = new FileStream(dane[1], FileMode.Create);
-                        XmlSerializer serializer = new XmlSerializer(typeof(HashSet<Student>), new XmlRootAttribute("uczelnia"));
+                        XmlSerializer serializer =
+                            new XmlSerializer(typeof(HashSet<Student>), new XmlRootAttribute("uczelnia"));
                         serializer.Serialize(XML, listaStud);
 
                         XML.Close();
                         XML.Dispose();
+
                     }
+
+                    // wersja JSON
 
                     if (dane[2] == "json")
                     {
                         FileStream JStream = new FileStream(dane[1], FileMode.Create);
-                    StreamWriter Json = new StreamWriter(JStream);
+                        StreamWriter Json = new StreamWriter(JStream);
                         {
+
                             foreach (var stud in listaStud)
                                 Json.WriteLine(JsonConvert.SerializeObject(stud));
 
                         }
+                        
 
 
-                }
+                    }
 
 
 
