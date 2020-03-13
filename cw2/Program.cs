@@ -26,7 +26,7 @@ namespace Cw2
                 dane[0] = args.Length > 0 ? args[0] : @"data.csv" ;
                 dane[1] = args.Length > 1 ? args[1] : @"żesult.xml";
                 dane[2] = args.Length > 2 ? args[2] : "xml";
-
+             
                 try
                 {
 
