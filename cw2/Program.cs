@@ -1,4 +1,5 @@
 ﻿using cw2;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -83,19 +84,35 @@ namespace Cw2
                         line = stream.ReadLine();
 
                 }
-                    
-                            
-                            FileStream XML = new FileStream(dane[1], FileMode.Create);
-                            XmlSerializer serializer = new XmlSerializer(typeof(HashSet<Student>), new XmlRootAttribute("uczelnia"));
-                            serializer.Serialize(XML, listaStud);
 
-                            XML.Close();
-                            XML.Dispose();
-                         
-                        
-                    
+                    if (dane[2] == "xml")
+                    {
+                        FileStream XML = new FileStream(dane[1], FileMode.Create);
+                        XmlSerializer serializer = new XmlSerializer(typeof(HashSet<Student>), new XmlRootAttribute("uczelnia"));
+                        serializer.Serialize(XML, listaStud);
+
+                        XML.Close();
+                        XML.Dispose();
+                    }
+
+                    if (dane[2] == "json")
+                    {
+                        FileStream JStream = new FileStream(dane[1], FileMode.Create);
+                    StreamWriter Json = new StreamWriter(JStream);
+                        {
+                            foreach (var stud in listaStud)
+                                Json.WriteLine(JsonConvert.SerializeObject(stud));
+
+                        }
+
 
                 }
+
+
+
+
+
+            }
                 catch (ArgumentException e)
                 {
                     string mess = "Podana ścieżka jest niepoprawna";
